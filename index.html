@@ -1,0 +1,128 @@
+<!-- Joel Iván Juárez León -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica 05 — Laboratorio Bioinformático (Local)</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <header id="titulo">🌾 Laboratorio Bioinformático A/B — Joel León</header>
+
+  <!-- Panel de Controles A/B -->
+  <aside id="controles">
+    <div class="sim-panel" id="panel-a">
+      <h2>🟦 Planta A</h2>
+      <label>Especie:</label>
+      <select id="especie-a" class="selector-especie"></select>
+      
+      <label>Modelo:</label>
+      <select id="modelo-a">
+        <option value="lineal">Lineal</option>
+        <option value="exponencial">Exponencial</option>
+        <option value="logistico" selected>Logístico</option>
+        <option value="gompertz">Gompertz</option>
+      </select>
+
+      <div class="sliders">
+        <label>💧 Agua: <span id="agua-a-val">70</span></label>
+        <input type="range" id="agua-a" min="0" max="100" value="70">
+        
+        <label>🌡️ Temp: <span id="temp-a-val">24</span>°C</label>
+        <input type="range" id="temp-a" min="0" max="45" value="24">
+      </div>
+    </div>
+
+    <div class="sim-panel" id="panel-b">
+      <h2>🟧 Planta B</h2>
+      <label>Especie:</label>
+      <select id="especie-b" class="selector-especie"></select>
+      
+      <label>Modelo:</label>
+      <select id="modelo-b">
+        <option value="lineal">Lineal</option>
+        <option value="exponencial">Exponencial</option>
+        <option value="logistico" selected>Logístico</option>
+        <option value="gompertz">Gompertz</option>
+      </select>
+
+      <div class="sliders">
+        <label>💧 Agua: <span id="agua-b-val">40</span></label>
+        <input type="range" id="agua-b" min="0" max="100" value="40">
+        
+        <label>🌡️ Temp: <span id="temp-b-val">32</span>°C</label>
+        <input type="range" id="temp-b" min="0" max="45" value="32">
+      </div>
+    </div>
+
+    <div class="acciones">
+      <label>⏩ Velocidad: <span id="vel-val">1.0</span>x</label>
+      <input type="range" id="velocidad" min="0.5" max="10" step="0.5" value="2" />
+      
+      <button id="btn-play">▶ Iniciar Simulación</button>
+      <button id="btn-reiniciar">🔄 Reiniciar</button>
+      <button id="btn-guardar">💾 Guardar en BD</button>
+      <button id="btn-reportes">📊 Reportes</button>
+    </div>
+  </aside>
+
+  <!-- KPIs -->
+  <div id="kpis">
+    <h3>📈 Panel de Control</h3>
+    <table>
+      <tr><th>Métrica</th><th>Planta A</th><th>Planta B</th></tr>
+      <tr><td>Día</td><td id="k-dia-a">0</td><td id="k-dia-b">0</td></tr>
+      <tr><td>Altura</td><td id="k-alt-a">0.0</td><td id="k-alt-b">0.0</td></tr>
+      <tr><td>Biomasa</td><td id="k-bio-a">0.0</td><td id="k-bio-b">0.0</td></tr>
+      <tr><td>Hojas</td><td id="k-hoj-a">0</td><td id="k-hoj-b">0</td></tr>
+      <tr><td>Estrés Hídrico</td><td id="k-eh-a">0</td><td id="k-eh-b">0</td></tr>
+      <tr><td>Estrés Térmico</td><td id="k-et-a">0</td><td id="k-et-b">0</td></tr>
+    </table>
+    <div id="ganador" class="ganador-box">Esperando datos...</div>
+  </div>
+
+  <!-- Recomendaciones -->
+  <div id="decision">
+    <h3>🧠 Motor de Decisiones</h3>
+    <div id="dec-a" class="dec-box"><b>Planta A:</b> Inicia la simulación.</div>
+    <div id="dec-b" class="dec-box"><b>Planta B:</b> Inicia la simulación.</div>
+  </div>
+
+  <!-- Gráfica -->
+  <div id="grafica-container">
+    <canvas id="grafica"></canvas>
+  </div>
+
+  <!-- Info Raycasting -->
+  <div id="info">
+    <h3 id="info-nombre">Selecciona una parte</h3>
+    <p><b>Tipo:</b> <span id="info-tipo">—</span></p>
+    <p><b>Crecimiento:</b> <span id="info-progreso">—</span></p>
+    <p><b>Biomasa aportada:</b> <span id="info-biomasa">—</span></p>
+    <p><b>Estrés de la planta:</b> <span id="info-estres">—</span></p>
+  </div>
+
+  <!-- Modal Reportes -->
+  <div id="modal-reportes">
+    <div class="modal-contenido">
+      <h2>📊 Reportes Históricos (LocalStorage)</h2>
+      <div id="tabla-reportes"></div>
+      <button onclick="document.getElementById('modal-reportes').style.display='none'">Cerrar</button>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
